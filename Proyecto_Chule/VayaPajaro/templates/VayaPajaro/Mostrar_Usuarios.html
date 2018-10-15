@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<table>
+{% for user in object_list %}
+<tr>
+	{{ user.id }}
+	{{ user.nombre }}
+	{{ user.nombreCuenta }}
+	{{ user.password }}
+	{{ user.fnacimiento }}
+	{{ user.correo }}
+	{{ user.estudios }}
+	{{ user.fotoPerfil.url }}
+	<img src="{{ user.fotoPerfil.url }}" height="100">
+	<br/>
+</tr>
+{% empty %}
+<p>No se encuentran ningún usuario registrado.</p>
+{% endfor %}
+</table>
+{% endblock %}

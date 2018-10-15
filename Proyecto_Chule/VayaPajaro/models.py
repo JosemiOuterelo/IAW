@@ -8,13 +8,17 @@ from django.db import models
 class Usuario(models.Model):
 	nombre = models.CharField(max_length=40)
 	nombreCuenta = models.CharField(max_length=40)
-	fnacimiento = modelfs.DateField()
+	password = models.CharField(max_length=40,default='')
+	fnacimiento = models.DateField()
 	correo = models.CharField(max_length=60,default='Desconocido')
 	estudios = models.CharField(max_length=500,default='Desconocidos')
-	fotoPerfil = models.ImageField(upload_to='Fotos de Perfil') 
+	fotoPerfil = models.ImageField(upload_to='Fotos_de_Perfil') 
 	
 	def __unicode__(self):
 		return self.nombreCuenta
+		
+	def get_absolute_url(self):
+		return 'http://127.0.0.1:8000/usuario/mostrar_usuarios/'
 
 class Ave(models.Model):
 	nombre = models.CharField(max_length=40,default='Desconocido',blank=True,null=True)
@@ -22,7 +26,7 @@ class Ave(models.Model):
 	alimentacion = models.TextField(max_length=2000,default='Desconocida',blank=True,null=True)
 	habitat = models.TextField(max_length=2000,default='Desconocida',blank=True,null=True)
 	localizacion = models.TextField(max_length=2000,default='Desconocida',blank=True,null=True)
-	fotos = models.ManyToManyField(Foto)
+	fotos = models.ManyToManyField('Foto')
 
 	def __unicode__(self):
 		return self.nombre
@@ -36,9 +40,9 @@ class Articulo(models.Model):
 		return '%s %d' % (self.usuario,self.ave,self.fcreacion)
 		
 class Foto(models.Model):
-	imagen = models.ImageField(upload_to='Fotos de Aves')
+	imagen = models.ImageField(upload_to='Fotos_de_Aves')
 	latitud = models.DecimalField(max_digits=9,decimal_places=6)
 	longitud = models.DecimalField(max_digits=9,decimal_places=6)
 	
 	def __unicode__(self):
-		return self.imagen
+		return unicode(self.imagen)

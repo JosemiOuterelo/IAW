@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from VayaPajaro.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^usuario/crear/',CrearUsuario.as_view(),name='Crear_Usuario'),
+    url(r'^usuario/mostrar_usuarios/',MostrarUsuarios.as_view(),name='Mostrar_Usuarios'),
+    url(r'^usuario/modificar/(?P<pk>\d+)',ModificarUsuarios.as_view(),name='Modificar_Usuarios'),
+    url(r'^usuario/eliminar/(?P<pk>\d+)',EliminarUsuario.as_view(),name='Eliminar_Usuario'),
 ]
