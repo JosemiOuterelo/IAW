@@ -3,14 +3,15 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 # Create your models here.
 
 class Usuario(models.Model):
-	nombre = models.CharField(max_length=40)
-	nombreCuenta = models.CharField(max_length=40)
-	password = models.CharField(max_length=40,default='')
-	fnacimiento = models.DateField()
-	correo = models.CharField(max_length=60,default='Desconocido')
+	user = models.OneToOneField(User,on_delete=models.CASCADE,default=None)
+	fnacimiento = models.DateField(null=True)
 	estudios = models.CharField(max_length=500,default='Desconocidos')
 	fotoPerfil = models.ImageField(upload_to='Fotos_de_Perfil') 
 	
@@ -19,6 +20,12 @@ class Usuario(models.Model):
 		
 	def get_absolute_url(self):
 		return 'http://127.0.0.1:8000/usuario/mostrar_usuarios/'
+
+@receiver(post_save, sender=User)
+def update_user_usuario(sender, instance, created, **kwargs):
+	if created:
+		Usuario.objects.create(user=instance)
+	instance.usuario.save()
 
 class Ave(models.Model):
 	nombre = models.CharField(max_length=40,default='Desconocido',blank=True,null=True)

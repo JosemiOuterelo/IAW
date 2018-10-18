@@ -3,12 +3,10 @@
 <table>
 {% for user in object_list %}
 <tr>
+	{% csrf_token %}
 	{{ user.id }}
-	{{ user.nombre }}
-	{{ user.nombreCuenta }}
-	{{ user.password }}
+	{{ user.user.username }}
 	{{ user.fnacimiento }}
-	{{ user.correo }}
 	{{ user.estudios }}
 	{{ user.fotoPerfil.url }}
 	<img src="{{ user.fotoPerfil.url }}" height="100">

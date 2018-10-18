@@ -1,6 +1,18 @@
 {% load static %}
 <html>
 <head>
+	<div style="background-color:yellow">
+	{% block usuario %}
+	{% csrf_token %}
+	{% if user.is_authenticated %}
+		<p> Choca esos five {{ user.get_username }}</p>
+		<p><a href="{% url 'Logout' %}">Cerrar sesion</a></p>
+	{% else %}
+		<p>Usuario anonimo.</p>
+		<p><a href="{% url 'Registrarse' %}">Registrarse</a> / <a href="{% url 'Login' %}">Iniciar Sesion</a></p>
+	{% endif %}
+	{% endblock %}
+	</div>
 </head>
 <body>
 	{% block content %}{% endblock %}
