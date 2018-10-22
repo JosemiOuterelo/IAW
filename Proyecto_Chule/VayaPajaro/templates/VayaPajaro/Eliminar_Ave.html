@@ -2,7 +2,7 @@
 {% block content %}
 <form action="" method="post">
 	{% csrf_token %}
-	<p>¿Quieres eliminar a "{{ object.username }}"?</p>
+	<p>¿Quieres eliminar a "{{ object.nombre }}"?</p>
 	<input type="submit" value="Confirmar" />
 </form>
 {% endblock %}

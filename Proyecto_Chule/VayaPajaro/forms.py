@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.models import User
 
+from VayaPajaro.models import *
+
 class RegistrarseForm(UserCreationForm):
 	fnacimiento = forms.DateField()
 	estudios = forms.CharField(max_length=500)
@@ -16,4 +18,20 @@ class RegistrarseForm(UserCreationForm):
 class IniciarSesion(forms.Form):
 	username = forms.CharField(max_length=500)
 	password = forms.CharField(max_length=500)
+
+	
+class CrearAveForm(forms.Form):
+	nombre = forms.CharField(max_length=40)
+	descripcion = forms.CharField(max_length=2000,widget=forms.Textarea)
+	alimentacion = forms.CharField(max_length=2000,widget=forms.Textarea)
+	habitat = forms.CharField(max_length=2000,widget=forms.Textarea)
+	localizacion = forms.CharField(max_length=2000,widget=forms.Textarea)
+	fotos = forms.ModelMultipleChoiceField(queryset=Foto.objects.all(),widget=forms.CheckboxSelectMultiple())
+	
+
+class CrearFotoForm(forms.Form):
+	imagen = forms.ImageField()
+	latitud = forms.DecimalField(max_digits=9,decimal_places=6)
+	longitud = forms.DecimalField(max_digits=9,decimal_places=6)
+	
 	

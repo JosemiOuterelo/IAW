@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<table>
+{% for ave in object_list %}
+{% csrf_token %}
+<tr>
+	{{ ave.pk }}
+	{{ ave.nombre }}
+	{% for Foto in ave.fotos.all %}
+		<img src="/media/{{ Foto }}" height="80">
+	{% endfor %}
+	<br/>
+</tr>
+{% empty %}
+<p>No se encuentra ningún ave agregada.</p>
+{% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+{% csrf_token %}
+<table>
+{% for articulo in object_list %}
+<tr>
+	{{ articulo.usuario }}
+	{{ articulo.ave }}
+	{{ articulo.fcreacion }}
+	<br/>
+</tr>
+{% empty %}
+<p>No se encuentra ningún articulo de un ave.</p>
+{% endfor %}
+</table>
+{% endblock %}

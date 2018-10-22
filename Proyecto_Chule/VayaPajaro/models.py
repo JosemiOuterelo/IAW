@@ -10,13 +10,13 @@ from django.dispatch import receiver
 # Create your models here.
 
 class Usuario(models.Model):
-	user = models.OneToOneField(User,on_delete=models.CASCADE,default=None)
+	user = models.OneToOneField(User,related_name='usuario',on_delete=models.CASCADE,default=None)
 	fnacimiento = models.DateField(null=True)
 	estudios = models.CharField(max_length=500,default='Desconocidos')
 	fotoPerfil = models.ImageField(upload_to='Fotos_de_Perfil') 
 	
 	def __unicode__(self):
-		return self.nombreCuenta
+		return self.user.username
 		
 	def get_absolute_url(self):
 		return 'http://127.0.0.1:8000/usuario/mostrar_usuarios/'
@@ -39,7 +39,7 @@ class Ave(models.Model):
 		return self.nombre
 	
 class Articulo(models.Model):
-	usuario = models.ForeignKey(Usuario)
+	usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 	ave = models.ForeignKey(Ave, on_delete=models.CASCADE)
 	fcreacion = models.DateField()
 	

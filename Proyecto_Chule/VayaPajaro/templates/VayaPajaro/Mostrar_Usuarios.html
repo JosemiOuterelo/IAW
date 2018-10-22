@@ -4,8 +4,9 @@
 {% for user in object_list %}
 <tr>
 	{% csrf_token %}
-	{{ user.id }}
+	{{ user.user.id }}
 	{{ user.user.username }}
+	{{ user.user.is_staff }}
 	{{ user.fnacimiento }}
 	{{ user.estudios }}
 	{{ user.fotoPerfil.url }}
