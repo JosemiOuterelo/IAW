@@ -6,9 +6,9 @@
 <tr>
 	{{ ave.pk }}
 	{{ ave.nombre }}
-	{% for Foto in ave.fotos.all %}
-		<img src="/media/{{ Foto }}" height="80">
-	{% endfor %}
+	<a href="{% url 'Mostrar_ave' nombre=ave.mostrar_nombre_con_espacios %}"><button>Ver</button></a>
+	<a href="{% url 'Modificar_Ave' ave.pk %}"><button>Modificar</button></a>
+	<a href="{% url 'Eliminar_Ave' ave.pk %}"><button>Eliminar</button></a>
 	<br/>
 </tr>
 {% empty %}

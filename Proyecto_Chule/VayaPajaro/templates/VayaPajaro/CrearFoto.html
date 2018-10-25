@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>SUBIR FOTO</h3>
+<form action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+{{ fotos.as_p }}
+{% for error in fotos.errors %}
+	<p style="color: blue">{{ error }}</p>
+{% endfor %}
+</p>
+<input type="submit" value="Subir" />
+</form>
+{% endblock %}

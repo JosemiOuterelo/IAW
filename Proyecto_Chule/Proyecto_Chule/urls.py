@@ -25,7 +25,6 @@ from django.views.generic.base import TemplateView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',TemplateView.as_view(template_name='VayaPajaro/Home.html')),
-    url(r'^base',MostrarImagenDePerfil,name='base'),
     url(r'^usuario/registrarse',registrarse,name='Registrarse'),
 	url(r'^usuario/login',iniciarsesion,name='Login'),
 	url(r'^usuario/logout',cerrarsesion,name='Logout'),
@@ -34,6 +33,9 @@ urlpatterns = [
     url(r'^usuario/eliminar/(?P<pk>\d+)',EliminarUsuario.as_view(),name='Eliminar_Usuario'),
     url(r'^ave/agregar',crearAve,name='CrearAve'),
     url(r'^ave/mostrar_aves/',MostrarAves.as_view(),name='Mostrar_Aves'),
+    url(r'^ave/mostrar_ave/(?P<nombre>\w+)/',mostrarave,name="Mostrar_ave"),
+    url(r'^ave/modificar/(?P<pk>\d+)',ModificarAves.as_view(),name="Modificar_Ave"),
     url(r'^ave/eliminar/(?P<pk>\d+)',EliminarAve.as_view(),name='Eliminar_Ave'),
     url(r'^articulo/mostrar_articulos/',MostrarArticulos.as_view(),name='Mostrar_Articulos'),
+    url(r'^foto/subir',crearFoto,name='CrearFoto'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

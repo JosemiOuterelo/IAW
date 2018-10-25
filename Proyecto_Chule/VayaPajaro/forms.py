@@ -2,6 +2,8 @@ from django import forms
 
 from django.contrib.auth.forms import UserCreationForm
 
+from django.forms import formset_factory
+
 from django.contrib.auth.models import User
 
 from VayaPajaro.models import *
@@ -25,13 +27,10 @@ class CrearAveForm(forms.Form):
 	descripcion = forms.CharField(max_length=2000,widget=forms.Textarea)
 	alimentacion = forms.CharField(max_length=2000,widget=forms.Textarea)
 	habitat = forms.CharField(max_length=2000,widget=forms.Textarea)
-	localizacion = forms.CharField(max_length=2000,widget=forms.Textarea)
-	fotos = forms.ModelMultipleChoiceField(queryset=Foto.objects.all(),widget=forms.CheckboxSelectMultiple())
-	
+	localizacion = forms.CharField(max_length=2000,widget=forms.Textarea)	
 
 class CrearFotoForm(forms.Form):
 	imagen = forms.ImageField()
-	latitud = forms.DecimalField(max_digits=9,decimal_places=6)
-	longitud = forms.DecimalField(max_digits=9,decimal_places=6)
-	
+
+crearfotoformset = formset_factory(CrearFotoForm,extra=5)
 	

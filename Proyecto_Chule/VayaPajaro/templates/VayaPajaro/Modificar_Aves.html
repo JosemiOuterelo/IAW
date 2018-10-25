@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="post">
+	{% csrf_token %}
+	<p>Nombre Ave</p>
+	{{ form.nombre }}</br>
+	<p>Descripcion</p>
+	{{ form.descripcion }}</br>
+	<p>Alimentacion</p>
+	{{ form.alimentacion }}</br>
+	<p>Habitat</p>
+	{{ form.habitat }}</br>
+	<p>Localizacion</p>
+	{{ form.localizacion }}</br>
+	<p>Fotos</p>
+	{% for f in form.fotos %}
+		<img src="/media/{{ f }}" height="80">
+	{% endfor %}
+	</br>
+	<input type="submit" value="Modificar" />
+</form>
+{% endblock %}

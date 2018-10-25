@@ -37,6 +37,9 @@ class Ave(models.Model):
 
 	def __unicode__(self):
 		return self.nombre
+		
+	def mostrar_nombre_con_espacios(self):
+		return self.nombre.replace(' ', '_')
 	
 class Articulo(models.Model):
 	usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
@@ -48,8 +51,6 @@ class Articulo(models.Model):
 		
 class Foto(models.Model):
 	imagen = models.ImageField(upload_to='Fotos_de_Aves')
-	latitud = models.DecimalField(max_digits=9,decimal_places=6)
-	longitud = models.DecimalField(max_digits=9,decimal_places=6)
 	
 	def __unicode__(self):
 		return unicode(self.imagen)

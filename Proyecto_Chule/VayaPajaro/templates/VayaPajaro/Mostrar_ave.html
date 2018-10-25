@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+{% csrf_token %}
+	{{ Ave.pk }}
+	{{ Ave.nombre }}
+	{{ Ave.descripcion }}
+	{{ Ave.alimentacion }}
+	{{ Ave.habitat }}
+	{{ Ave.localizacion }}
+	{% for Foto in Ave.fotos.all %}
+		<img src="/media/{{ Foto }}" height="80">
+	{% endfor %}
+<br/>
+</table>
+{% endblock %}
