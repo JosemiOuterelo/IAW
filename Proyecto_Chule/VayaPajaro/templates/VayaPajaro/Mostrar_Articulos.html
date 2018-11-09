@@ -2,11 +2,16 @@
 {% block content %}
 {% csrf_token %}
 <table>
+<tr>
+	<th>Usuario creador</th>
+	<th>Ave creada</th>
+	<th>Fecha de creación</th>
+</tr>
 {% for articulo in object_list %}
 <tr>
-	{{ articulo.usuario }}
-	{{ articulo.ave }}
-	{{ articulo.fcreacion }}
+	<td>{{ articulo.usuario }}</td>
+	<td><a href="{% url 'Mostrar_ave' nombre=articulo.ave.mostrar_nombre_con_espacios %}">{{ articulo.ave }}</a></td>
+	<td>{{ articulo.fcreacion }}</td>
 	<br/>
 </tr>
 {% empty %}

@@ -1,18 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-<table>
-{% for user in object_list %}
+<h3 style="float:left;color:white;">USUARIOS</h3>
+<div>
+<table id="mostrarusuarios">
 <tr>
-	{% csrf_token %}
-	{{ user.user.id }}
-	{{ user.user.username }}
-	{{ user.user.is_staff }}
-	{{ user.fnacimiento }}
-	{{ user.estudios }}
-	{{ user.fotoPerfil.url }}
-	<img src="{{ user.fotoPerfil.url }}" height="100">
-	<br/>
+	<th>PK</th>
+	<th>Usuario</th>
+	<th>Admin</th>
+	<th>Fecha de nacimiento</th>
+	<th>Estudios</th>
+	<th>Imágen de perfil</th>
+	<th>Opciones</th>
 </tr>
+{% for user in object_list %}
+<tr style="border-style: inset;">
+	{% csrf_token %}
+	<td>{{ user.user.pk }}</td>
+	<td>{{ user.user.username }}</td>
+	<td>{{ user.user.is_staff }}</td>
+	<td>{{ user.fnacimiento }}</td>
+	<td>{{ user.estudios }}</td>
+	<td><img src="{{ user.fotoPerfil.url }}" height="100"></td>
+	<td><a href="{% url 'Modificar_Usuarios' user.pk %}"><button>Modificar</button></a>
+	<a href="{% url 'Eliminar_Usuario' user.user.pk %}"><button>Eliminar</button></a></td>
+	<br/>
+	</p>
+</tr>
+</div>
 {% empty %}
 <p>No se encuentran ningún usuario registrado.</p>
 {% endfor %}

@@ -1,0 +1,32 @@
+{% load static %}
+<html>
+<head>
+<div style="background-color:yellow">
+	<div>
+	{% csrf_token %}
+	{% if user.is_authenticated %}
+		<p> USUARIO: {{ user.get_username }}</p>
+		<div>
+		<img src="{{ user.usuario.fotoPerfil.url }}" height="80">
+		</div>
+		<p><a href="{% url 'Logout' %}">Cerrar sesion</a></p>
+	{% else %}
+		<p>Usuario anonimo.</p>
+		<p><a href="{% url 'Registrarse' %}">Registrarse</a> / <a href="{% url 'Login' %}">Iniciar Sesion</a></p>
+	{% endif %}
+	</div>
+	<div>
+		<ul>
+			{% if user.is_staff %}
+			<li><a href="{% url 'Mostrar_Usuarios' %}">USUARIOS</a></li>
+			{% endif %}
+			<li><a href="{% url 'Mostrar_Aves' %}">AVES</a></li>
+			<li><a href="{% url 'Mostrar_Articulos' %}">ARTICULOS</a></li>
+		</ul>
+	</div>
+</div>
+</head>
+<body>
+	{% block content %}{% endblock %}
+</body>
+</html>

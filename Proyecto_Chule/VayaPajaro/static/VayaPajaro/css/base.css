@@ -1,0 +1,115 @@
+body {
+  padding-top: 5rem;
+  background-image: url("/media/fenix.jpg");
+  background-repeat: repeat;
+}
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+#usuario{
+	background-color:#800000;
+	position:relative;
+	left: 0px;
+	top: 25px;
+	padding-left: 10px;
+	padding-right: 15px;
+	padding-top: 10px;
+	float:right;
+}
+
+.nav-item:hover{
+	background-color:#3e0000;
+}
+
+
+#usuario > p,#usuario > p > a{
+	color:white;
+	font-weight: bolder;
+}
+
+#usuario > p > a:link {
+    text-decoration: none;
+}
+
+#usuario > p > a:visited {
+    text-decoration: none;
+}
+
+#usuario > p > a:hover {
+    text-decoration: underline;
+    color:#00008B;
+}
+
+#usuario > p > a:active {
+    text-decoration: underline;
+}
+
+#registro{
+	position: relative;
+	top: 30px;
+	left: 0px;
+	text-align: center;
+	border-radius: 15px;
+	border: 8px solid black;
+	background-color: #f0f0f0;
+	margin-left: 130px;
+	margin-right: 100px;
+	padding-bottom: 3px;
+}
+
+#login{
+	text-align: center;
+	position:relative;
+	margin-top: 90px;
+	margin-left: 200px;
+	margin-right: 200px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	border-radius: 15px;
+	border: 8px solid black;
+	background-color: #f0f0f0;
+}
+
+#mostrarusuarios,#mostrarusuarios > td{
+	padding-top: 5px;
+	border-collapse: collapse;
+	border: 2px solid black;
+	background-color: #f0f0f0;
+}
+
+#mostraraves,#mostraraves > td{
+	border-collapse: collapse;
+	border: 2px solid black;
+	background-color: #f0f0f0;
+}
+
+#mostraraves > td,th {
+	padding: 5px;
+}
+
+#ave{
+	position: absolute;
+	text-align: left;
+	left: 0px;
+}
+
+#ave > h5{
+	font-weight: bold;
+	color: white;
+}
+
+#ave > p{
+	background-color: #e5dfc3;
+	border-radius: 10px;
+	padding: 4px;
+}
+
+#ave > table,td,tr{
+	border-collapse: collapse;
+	border: 2px solid black;
+	background-color: #f0f0f0;
+	padding: 5px;
+}
+

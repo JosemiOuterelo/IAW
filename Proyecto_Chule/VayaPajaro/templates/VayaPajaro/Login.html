@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>Pagina de Login</h3>
 <form action="" method="post">
 	{% csrf_token %}
+	<div id="login">
+	<h3 style="float:center;">LOGIN</h3></p>
+	<p>Nombre de usuario:</p>
 	{{ form.username }}
-	{{ form.password }}
+	<p>Contraseña:</p>
+	{{ form.password }}</p>
 	<input type="submit" value="Iniciar Sesion" />
+	</div>
 </form>
 {% endblock %}

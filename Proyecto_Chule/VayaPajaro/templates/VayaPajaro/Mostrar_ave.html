@@ -1,15 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 {% csrf_token %}
-	{{ Ave.pk }}
-	{{ Ave.nombre }}
-	{{ Ave.descripcion }}
-	{{ Ave.alimentacion }}
-	{{ Ave.habitat }}
-	{{ Ave.localizacion }}
+<div id="ave">
+	<h3 style="color:white;font-weight: bold;">NOMBRE: {{ Ave.nombre }} - {{ Ave.pk }}</h3>
+	<h5>DESCRIPCIÓN</h5>
+	<p>{{ Ave.descripcion }}</p>
+	<h5>ALIMENTACIÓN</h5>
+	<p>{{ Ave.alimentacion }}</p>
+	<h5>HABITAT</h5>
+	<p>{{ Ave.habitat }}</p>
+	<h5>LOCALIZACIÓN</h5>
+	<p>{{ Ave.localizacion }}</p>
+	<h5>FOTOS</h5>
+	<table>
+		<tr>
 	{% for Foto in Ave.fotos.all %}
-		<img src="/media/{{ Foto }}" height="80">
+		<td><a href="/media/{{ Foto }}"><img src="/media/{{ Foto }}" height="300"></a></td>
 	{% endfor %}
+		</tr>
+	</table>
 <br/>
+</div>
 </table>
 {% endblock %}

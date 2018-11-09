@@ -41,7 +41,7 @@ def registrarse(request):
 		form = RegistrarseForm()
 	return render(request,'VayaPajaro/Registrarse.html',{'form':form})
 
-
+2
 def iniciarsesion(request):
 	if request.method == 'POST':
 		form = IniciarSesion(request.POST)
@@ -167,7 +167,6 @@ class ModificarAves(LoginRequiredMixin,UpdateView):
 	fields = '__all__'
 	template_name = 'VayaPajaro/Modificar_Aves.html'
 	success_url = 'http://127.0.0.1:8000/ave/mostrar_aves/'
-	
 
 class EliminarAve(UserPassesTestMixin,DeleteView):
 	model = Ave

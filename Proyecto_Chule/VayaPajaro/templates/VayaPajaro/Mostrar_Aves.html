@@ -1,14 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<table>
+<table id="mostraraves">
+<tr>
+	<th>PK</th>
+	<th>Nombre</th>
+	<th>OPCIONES</th>
+</tr>
 {% for ave in object_list %}
 {% csrf_token %}
 <tr>
-	{{ ave.pk }}
-	{{ ave.nombre }}
-	<a href="{% url 'Mostrar_ave' nombre=ave.mostrar_nombre_con_espacios %}"><button>Ver</button></a>
+	<td>{{ ave.pk }}</td>
+	<td>{{ ave.nombre }}</td>
+	<td><a href="{% url 'Mostrar_ave' nombre=ave.mostrar_nombre_con_espacios %}"><button>Ver</button></a>
 	<a href="{% url 'Modificar_Ave' ave.pk %}"><button>Modificar</button></a>
-	<a href="{% url 'Eliminar_Ave' ave.pk %}"><button>Eliminar</button></a>
+	<a href="{% url 'Eliminar_Ave' ave.pk %}"><button>Eliminar</button></a></td>
 	<br/>
 </tr>
 {% empty %}

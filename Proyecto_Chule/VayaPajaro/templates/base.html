@@ -1,32 +1,55 @@
 {% load static %}
-<html>
-<head>
-<div style="background-color:yellow">
-	<div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>VayaPajaro</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'VayaPajaro/css/base2.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'VayaPajaro/css/base.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="http://127.0.0.1:8000/">VAYAPAJARO</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          {% if user.is_staff %}
+		  <li class="nav-item active"><a class="nav-link" href="{% url 'Mostrar_Usuarios' %}">USUARIOS</a></li>
+			{% endif %}
+		  <li class="nav-item active"><a class="nav-link" href="{% url 'Mostrar_Aves' %}">AVES</a></li>
+	      <li class="nav-item active"><a class="nav-link" href="{% url 'Mostrar_Articulos' %}">ARTICULOS</a></li>
+		</ul>
+      </div>
+      <img src="{% static 'VayaPajaro/imagenes/Pidgeot.png' %}" height="90">
+    </nav>
+    <div id="usuario">
 	{% csrf_token %}
 	{% if user.is_authenticated %}
 		<p> USUARIO: {{ user.get_username }}</p>
-		<div>
-		<img src="{{ user.usuario.fotoPerfil.url }}" height="80">
-		</div>
+		<img src="{{ user.usuario.fotoPerfil.url }}" height="90">
 		<p><a href="{% url 'Logout' %}">Cerrar sesion</a></p>
 	{% else %}
 		<p>Usuario anonimo.</p>
 		<p><a href="{% url 'Registrarse' %}">Registrarse</a> / <a href="{% url 'Login' %}">Iniciar Sesion</a></p>
 	{% endif %}
 	</div>
-	<div>
-		<ul>
-			{% if user.is_staff %}
-			<li><a href="{% url 'Mostrar_Usuarios' %}">USUARIOS</a></li>
-			{% endif %}
-			<li><a href="{% url 'Mostrar_Aves' %}">AVES</a></li>
-			<li><a href="{% url 'Mostrar_Articulos' %}">ARTICULOS</a></li>
-		</ul>
-	</div>
-</div>
-</head>
-<body>
-	{% block content %}{% endblock %}
+
+    <main role="main" class="container">
+
+      <div class="starter-template">
+        {% block content %}{% endblock %}
+        </div>
+
+    </main>
 </body>
-</html>
