@@ -10,13 +10,13 @@ body {
 
 #usuario{
 	background-color:#800000;
-	position:relative;
-	left: 0px;
-	top: 25px;
+	position: fixed;
+	right: 0px;
+	top: 100px;
 	padding-left: 10px;
 	padding-right: 15px;
 	padding-top: 10px;
-	float:right;
+	float:left;
 }
 
 .nav-item:hover{
@@ -87,6 +87,20 @@ body {
 
 #mostraraves > td,th {
 	padding: 5px;
+}
+
+#añadirave {
+	float: left;
+}
+
+#añadirave > button:hover {
+	color: white;
+	background-color: black;
+}
+
+#Añadirave {
+	color: white;
+	font-weight: bolder;
 }
 
 #ave{

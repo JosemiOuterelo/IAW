@@ -1,24 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>AÑADIR AVE</h3>
+<h3 style="color:white;font-weight:bolder">AÑADIR AVE</h3>
+<div id="Añadirave">
 <form action="" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
 	<p>Nombre Ave</p>
-	{{ ave.nombre }}</br>
+	{{ ave.nombre }}
+	</br>
+	</br>
 	<p>Descripcion</p>
-	{{ ave.descripcion }}</br>
+	{{ ave.descripcion }}
+	</br>
+	</br>
 	<p>Alimentacion</p>
-	{{ ave.alimentacion }}</br>
+	{{ ave.alimentacion }}
+	</br>
+	</br>
 	<p>Habitat</p>
-	{{ ave.habitat }}</br>
+	{{ ave.habitat }}
+	</br>
+	</br>
 	<p>Localizacion</p>
-	{{ ave.localizacion }}</br>
+	{{ ave.localizacion }}
+	</br>
+	</br>
 	<p>Fotos</p>
-	{{ Imagenes }}
+	{% for img in Imagenes %}
+		<ul>{{img}}</ul>
+	{% endfor %}
 	{% for error in ave.errors %}
-		<p style="color: blue">{{ error }}</p>
+		<p style="color: white">{{ error }}</p>
 	{% endfor %}
 		</p>
 	<input type="submit" value="Añadir" />
 </form>
+</div>
 {% endblock %}
