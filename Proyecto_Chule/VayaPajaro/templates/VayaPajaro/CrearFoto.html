@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<div style="color:white">
 <h3>SUBIR FOTO</h3>
 <form action="" method="post" enctype="multipart/form-data">
 {% csrf_token %}
@@ -10,4 +11,5 @@
 </p>
 <input type="submit" value="Subir" />
 </form>
+</div>
 {% endblock %}

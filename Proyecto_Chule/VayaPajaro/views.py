@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from django.urls import reverse
 
 from django.http import Http404,HttpResponseRedirect,HttpResponse
 
@@ -41,7 +42,7 @@ def registrarse(request):
 		form = RegistrarseForm()
 	return render(request,'VayaPajaro/Registrarse.html',{'form':form})
 
-2
+
 def iniciarsesion(request):
 	if request.method == 'POST':
 		form = IniciarSesion(request.POST)
@@ -83,7 +84,7 @@ class ModificarUsuarios(UserPassesTestMixin,UpdateView):
 	login_url='/usuario/login'
 	fields = '__all__'
 	template_name = 'VayaPajaro/Modificar_Usuarios.html'
-	success_url = 'http://127.0.0.1:8000/'
+	success_url = '/usuario/mostrar_usuarios/'
 	
 	def test_func(self):
 		return self.request.user.is_staff == True
@@ -159,20 +160,19 @@ def mostrarave(request,nombre):
 		return render(request,'VayaPajaro/Mostrar_ave.html',{'Ave':ave})
 	else:
 		return HttpResponseRedirect('No existe ave.')
-	
 		
 class ModificarAves(LoginRequiredMixin,UpdateView):
 	model = Ave
 	login_url='/usuario/login'
-	fields = '__all__'
+	fields = ['nombre','descripcion','alimentacion','habitat','localizacion']
 	template_name = 'VayaPajaro/Modificar_Aves.html'
-	success_url = 'http://127.0.0.1:8000/ave/mostrar_aves/'
+	success_url = '/ave/mostrar_aves/'
 
 class EliminarAve(UserPassesTestMixin,DeleteView):
 	model = Ave
 	login_url='/usuario/login'
 	template_name = 'VayaPajaro/Eliminar_Ave.html'
-	success_url = 'http://127.0.0.1:8000/ave/mostrar_aves/'
+	success_url = '/ave/mostrar_aves/'
 	
 	def test_func(self):
 		return self.request.user.is_staff == True
@@ -196,13 +196,27 @@ class MostrarArticulos(LoginRequiredMixin,ListView):
 		return context
  
 @login_required(login_url='/usuario/login')
-def crearFoto(request):
+def crearFoto(request,nombre):
 	if request.method == 'POST':
 		form = CrearFotoForm(request.POST,request.FILES)
 		if form.is_valid():
+			ave = Ave.objects.get(nombre=nombre.replace('_',' '))
 			imagen = Foto()
 			imagen.imagen = form.cleaned_data.get('imagen')
 			imagen.save()
+			ave.fotos.add(imagen)
+			return HttpResponseRedirect('/ave/mostrar_ave/%s/' % ave.nombre)
 	else:
 		form = CrearFotoForm()	
 	return render(request,'VayaPajaro/CrearFoto.html',{'fotos':form})
+
+@login_required(login_url='/usuario/login')
+def eliminarFoto(request,pk):
+	if request.method == 'POST':
+		foto = Foto.objects.get(pk=pk)
+		ave = foto.ave_set.all()
+		nombre= ave[0].nombre
+		foto.imagen.delete()
+		foto.delete()
+		return HttpResponseRedirect('/ave/mostrar_ave/%s/' % nombre)
+	return render(request,'VayaPajaro/Eliminar_Foto.html')

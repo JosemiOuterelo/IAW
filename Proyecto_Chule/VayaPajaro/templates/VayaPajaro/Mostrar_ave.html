@@ -15,10 +15,15 @@
 	<table>
 		<tr>
 	{% for Foto in Ave.fotos.all %}
-		<td><a href="/media/{{ Foto }}"><img src="/media/{{ Foto }}" height="300"></a></td>
+		<td><a href="/media/{{ Foto }}"><img src="/media/{{ Foto }}" height="300"></a>
+		<br/>
+		<a href="{% url 'Eliminar_Foto' pk=Foto.pk  %}"><button>Eliminar</button></a></td>
 	{% endfor %}
 		</tr>
 	</table>
+	<br/>
+	<a href="{% url 'CrearFoto' nombre=Ave.mostrar_nombre_con_espacios %}"><button>Añadir nueva Foto</button></a>
+		
 <br/>
 </div>
 </table>

@@ -33,4 +33,4 @@ class CrearFotoForm(forms.Form):
 	imagen = forms.ImageField()
 
 crearfotoformset = formset_factory(CrearFotoForm,extra=5)
-	
+

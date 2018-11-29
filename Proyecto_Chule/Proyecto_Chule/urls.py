@@ -37,5 +37,6 @@ urlpatterns = [
     url(r'^ave/modificar/(?P<pk>\d+)',ModificarAves.as_view(),name="Modificar_Ave"),
     url(r'^ave/eliminar/(?P<pk>\d+)',EliminarAve.as_view(),name='Eliminar_Ave'),
     url(r'^articulo/mostrar_articulos/',MostrarArticulos.as_view(),name='Mostrar_Articulos'),
-    url(r'^foto/subir',crearFoto,name='CrearFoto'),
+    url(r'^foto/subir/(?P<nombre>\w+)',crearFoto,name='CrearFoto'),
+    url(r'^foto/eliminar/(?P<pk>\d+)',eliminarFoto,name="Eliminar_Foto"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

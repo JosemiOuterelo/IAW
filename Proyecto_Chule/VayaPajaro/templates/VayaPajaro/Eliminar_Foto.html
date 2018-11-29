@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="post">
+	{% csrf_token %}
+	<h2 style="color:white">¿Estas seguro de querer eliminar la foto?</h2>
+	<input type="submit" value="Confirmar" />
+</form>
+{% endblock %}
