@@ -13,13 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url,include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 
 from VayaPajaro.views import *
 from VayaPajaro.forms import *
+from VayaPajaro.serializers import *
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
@@ -39,4 +40,13 @@ urlpatterns = [
     url(r'^articulo/mostrar_articulos/',MostrarArticulos.as_view(),name='Mostrar_Articulos'),
     url(r'^foto/subir/(?P<nombre>\w+)',crearFoto,name='CrearFoto'),
     url(r'^foto/eliminar/(?P<pk>\d+)',eliminarFoto,name="Eliminar_Foto"),
+    url(r'^serializer/usuarios/$',SerMostrar_Usuarios.as_view()),
+    url(r'^serializer/usuario/(?P<pk>\d+)',SerMostrar_Usuario.as_view()),
+    url(r'^serializer/aves/$',SerMostrar_Aves.as_view()),
+    url(r'^serializer/ave/(?P<pk>\d+)',SerMostrar_Ave.as_view()),
+    url(r'^serializer/articulos/$',SerMostrar_Articulos.as_view()),
+    url(r'^serializer/articulo/(?P<pk>\d+)',SerMostrar_Articulo.as_view()),
+    url(r'^serializer/fotos/$',SerMostrar_Fotos.as_view()),
+    url(r'^serializer/foto/(?P<pk>\d+)',SerMostrar_Foto.as_view()),
+    url(r'^serializer/',include('rest_framework.urls',namespace='rest_framework')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

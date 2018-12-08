@@ -18,6 +18,10 @@ import datetime
 from django.contrib.auth.models import User
 from VayaPajaro.models import *
 from VayaPajaro.forms import *
+from VayaPajaro.serializers import *
+from rest_framework import generics
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -101,7 +105,7 @@ class EliminarUsuario(UserPassesTestMixin,DeleteView):
 		
 	def delete(self, request, *args, **kwargs):
 		self.object = self.get_object()
-		self.object.fotoPerfil.delete()
+		self.object.usuario.fotoPerfil.delete()
 		self.object.delete()
 		return HttpResponseRedirect(self.get_success_url())
 
@@ -220,3 +224,53 @@ def eliminarFoto(request,pk):
 		foto.delete()
 		return HttpResponseRedirect('/ave/mostrar_ave/%s/' % nombre)
 	return render(request,'VayaPajaro/Eliminar_Foto.html')
+
+#REST API
+
+class SerMostrar_Usuarios(generics.ListCreateAPIView):
+	authentication_classes = (SessionAuthentication, BasicAuthentication)
+	permission_classes = (IsAuthenticated,)
+	queryset = Usuario.objects.all()
+	serializer_class = UsuarioSerializer
+	
+class SerMostrar_Aves(generics.ListCreateAPIView):
+	authentication_classes = (SessionAuthentication, BasicAuthentication)
+	permission_classes = (IsAuthenticated,)
+	queryset = Ave.objects.all()
+	serializer_class = AveSerializer
+	
+class SerMostrar_Articulos(generics.ListCreateAPIView):
+	authentication_classes = (SessionAuthentication, BasicAuthentication)
+	permission_classes = (IsAuthenticated,)
+	queryset = Articulo.objects.all()
+	serializer_class = ArticuloSerializer
+	
+class SerMostrar_Fotos(generics.ListCreateAPIView):
+	authentication_classes = (SessionAuthentication, BasicAuthentication)
+	permission_classes = (IsAuthenticated,)
+	queryset = Foto.objects.all()
+	serializer_class = FotoSerializer
+	
+class SerMostrar_Usuario(generics.RetrieveUpdateDestroyAPIView):
+	authentication_classes = (SessionAuthentication, BasicAuthentication)
+	permission_classes = (IsAuthenticated,)
+	queryset = Usuario.objects.all()
+	serializer_class = UsuarioSerializer
+	
+class SerMostrar_Ave(generics.RetrieveUpdateDestroyAPIView):
+	authentication_classes = (SessionAuthentication, BasicAuthentication)
+	permission_classes = (IsAuthenticated,)
+	queryset = Ave.objects.all()
+	serializer_class = AveSerializer
+	
+class SerMostrar_Articulo(generics.RetrieveUpdateDestroyAPIView):
+	authentication_classes = (SessionAuthentication, BasicAuthentication)
+	permission_classes = (IsAuthenticated,)
+	queryset = Articulo.objects.all()
+	serializer_class = ArticuloSerializer
+	
+class SerMostrar_Foto(generics.RetrieveUpdateDestroyAPIView):
+	authentication_classes = (SessionAuthentication, BasicAuthentication)
+	permission_classes = (IsAuthenticated,)
+	queryset = Foto.objects.all()
+	serializer_class = FotoSerializer

@@ -13,7 +13,9 @@
 	<td>{{ ave.nombre }}</td>
 	<td><a href="{% url 'Mostrar_ave' nombre=ave.mostrar_nombre_con_espacios %}"><button>Ver</button></a>
 	<a href="{% url 'Modificar_Ave' ave.pk %}"><button>Modificar</button></a>
+	{% if user.is_staff %}
 	<a href="{% url 'Eliminar_Ave' ave.pk %}"><button>Eliminar</button></a></td>
+	{% endif %}
 	<br/>
 </tr>
 {% empty %}
