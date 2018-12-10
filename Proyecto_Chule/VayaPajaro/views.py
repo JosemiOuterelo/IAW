@@ -9,7 +9,7 @@ from django.http import Http404,HttpResponseRedirect,HttpResponse
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 
 from django.views.generic.edit import UpdateView,DeleteView
 from django.views.generic.list import ListView
@@ -214,7 +214,12 @@ def crearFoto(request,nombre):
 		form = CrearFotoForm()	
 	return render(request,'VayaPajaro/CrearFoto.html',{'fotos':form})
 
-@login_required(login_url='/usuario/login')
+
+def administrador(user):
+	return user.is_staff
+	
+	
+@user_passes_test(administrador,login_url='/usuario/login')
 def eliminarFoto(request,pk):
 	if request.method == 'POST':
 		foto = Foto.objects.get(pk=pk)
