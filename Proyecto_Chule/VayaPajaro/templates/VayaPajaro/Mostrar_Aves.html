@@ -10,8 +10,8 @@
 {% csrf_token %}
 <tr>
 	<td>{{ ave.pk }}</td>
-	<td>{{ ave.nombre }}</td>
-	<td><a href="{% url 'Mostrar_ave' nombre=ave.mostrar_nombre_con_espacios %}"><button>Ver</button></a>
+	<td><a href="{% url 'Mostrar_ave' nombre=ave.mostrar_nombre_con_espacios %}">{{ ave.nombre }}</a></td>
+	<td>
 	<a href="{% url 'Modificar_Ave' ave.pk %}"><button>Modificar</button></a>
 	{% if user.is_staff %}
 	<a href="{% url 'Eliminar_Ave' ave.pk %}"><button>Eliminar</button></a></td>
@@ -19,7 +19,7 @@
 	<br/>
 </tr>
 {% empty %}
-<p>No se encuentra ningún ave agregada.</p>
+<h2 style="color:white">No se encuentra ningún ave agregada.</h2>
 {% endfor %}
 </table>
 <br/>

@@ -17,7 +17,7 @@
 	{% for Foto in Ave.fotos.all %}
 		<td><a href="/media/{{ Foto }}"><img src="/media/{{ Foto }}" height="300"></a>
 		<br/>
-		{% if user.is_staff %}
+		{% if user.is_staff or Foto.usuario == user.usuario %}
 		<a href="{% url 'Eliminar_Foto' pk=Foto.pk  %}"><button>Eliminar</button></a></td>
 		{% endif %}
 	{% endfor %}

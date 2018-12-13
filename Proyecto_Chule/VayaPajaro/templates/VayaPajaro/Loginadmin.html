@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="post">
+	{% csrf_token %}
+	<div id="login">
+	<h3 style="float:center;">INICIAR SESIÓN COMO ADMINISTRADOR</h3></p>
+	<p>Nombre de usuario:</p>
+	{{ form.username }}</p>
+	<p>Contraseña:</p>
+	{{ form.password }}</p>
+	<input type="submit" value="Iniciar Sesion" />
+	</div>
+</form>
+{% endblock %}

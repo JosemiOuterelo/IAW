@@ -62,6 +62,25 @@ def iniciarsesion(request):
 	else:
 		form = IniciarSesion()
 	return render(request,'VayaPajaro/Login.html',{'form':form})
+	
+def iniciarsesionadmin(request):
+	if request.method == 'POST':
+		form = IniciarSesion(request.POST)
+		if form.is_valid():
+			username = form.cleaned_data.get('username')
+			password = form.cleaned_data.get('password')
+			user = authenticate(request,username=username,password=password)
+			if user is not None:
+				if user.is_staff == True:
+					login(request,user)
+					return HttpResponseRedirect('/')
+				else:
+					return HttpResponse("El usuario debe ser administrador.")
+			else:
+				return HttpResponse("¡Usuario incorrecto!")
+	else:
+		form = IniciarSesion()
+	return render(request,'VayaPajaro/Loginadmin.html',{'form':form})
 
 def cerrarsesion(request):
 	logout(request)
@@ -71,7 +90,7 @@ def cerrarsesion(request):
 
 class MostrarUsuarios(UserPassesTestMixin,ListView):
 	model = Usuario
-	login_url='/usuario/login'
+	login_url='/usuario/loginadmin/'
 	fields = '__all__'
 	template_name = 'VayaPajaro/Mostrar_Usuarios.html'
 	
@@ -85,7 +104,7 @@ class MostrarUsuarios(UserPassesTestMixin,ListView):
 		
 class ModificarUsuarios(UserPassesTestMixin,UpdateView):
 	model = Usuario
-	login_url='/usuario/login'
+	login_url='/usuario/loginadmin/'
 	fields = '__all__'
 	template_name = 'VayaPajaro/Modificar_Usuarios.html'
 	success_url = '/usuario/mostrar_usuarios/'
@@ -96,7 +115,7 @@ class ModificarUsuarios(UserPassesTestMixin,UpdateView):
 	
 class EliminarUsuario(UserPassesTestMixin,DeleteView):
 	model = User
-	login_url='/usuario/login'
+	login_url='/usuario/loginadmin/'
 	template_name = 'VayaPajaro/Eliminar_Usuario.html'
 	success_url = 'http://127.0.0.1:8000/'
 	
@@ -112,7 +131,7 @@ class EliminarUsuario(UserPassesTestMixin,DeleteView):
 
 # Aves, Articulos y Fotos
 
-@login_required(login_url='/usuario/login')
+@login_required(login_url='/usuario/login/')
 def crearAve(request):
 	if request.method == 'POST':
 		form1 = CrearAveForm(request.POST,request.FILES)
@@ -132,6 +151,7 @@ def crearAve(request):
 				if len(f)>0:
 					foto = Foto()
 					foto.imagen = f.get('imagen')
+					foto.usuario = usuario
 					foto.save()
 					ave.fotos.add(foto)
 			ave.save()
@@ -157,7 +177,7 @@ class MostrarAves(LoginRequiredMixin,ListView):
 		return context
 		
 		
-@login_required(login_url='/usuario/login')
+@login_required(login_url='/usuario/login/')
 def mostrarave(request,nombre):
 	ave = Ave.objects.get(nombre=nombre.replace('_',' '))
 	if ave:
@@ -167,14 +187,14 @@ def mostrarave(request,nombre):
 		
 class ModificarAves(LoginRequiredMixin,UpdateView):
 	model = Ave
-	login_url='/usuario/login'
+	login_url='/usuario/login/'
 	fields = ['nombre','descripcion','alimentacion','habitat','localizacion']
 	template_name = 'VayaPajaro/Modificar_Aves.html'
 	success_url = '/ave/mostrar_aves/'
 
 class EliminarAve(UserPassesTestMixin,DeleteView):
 	model = Ave
-	login_url='/usuario/login'
+	login_url='usuario/loginadmin/'
 	template_name = 'VayaPajaro/Eliminar_Ave.html'
 	success_url = '/ave/mostrar_aves/'
 	
@@ -199,14 +219,16 @@ class MostrarArticulos(LoginRequiredMixin,ListView):
 		context = super(MostrarArticulos,self).get_context_data(**kwargs)
 		return context
  
-@login_required(login_url='/usuario/login')
+@login_required(login_url='/usuario/login/')
 def crearFoto(request,nombre):
 	if request.method == 'POST':
 		form = CrearFotoForm(request.POST,request.FILES)
 		if form.is_valid():
 			ave = Ave.objects.get(nombre=nombre.replace('_',' '))
+			usuario = Usuario.objects.get(user=request.user)
 			imagen = Foto()
 			imagen.imagen = form.cleaned_data.get('imagen')
+			imagen.usuario = usuario
 			imagen.save()
 			ave.fotos.add(imagen)
 			return HttpResponseRedirect('/ave/mostrar_ave/%s/' % ave.nombre)
@@ -219,7 +241,7 @@ def administrador(user):
 	return user.is_staff
 	
 	
-@user_passes_test(administrador,login_url='/usuario/login')
+@user_passes_test(administrador,login_url='/usuario/login/')
 def eliminarFoto(request,pk):
 	if request.method == 'POST':
 		foto = Foto.objects.get(pk=pk)

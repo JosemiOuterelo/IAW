@@ -2,7 +2,7 @@ from django import forms
 
 from django.contrib.auth.forms import UserCreationForm
 
-from django.forms import formset_factory
+from django.forms import formset_factory,PasswordInput
 
 from django.contrib.auth.models import User
 
@@ -19,7 +19,7 @@ class RegistrarseForm(UserCreationForm):
 
 class IniciarSesion(forms.Form):
 	username = forms.CharField(max_length=500)
-	password = forms.CharField(max_length=500)
+	password = forms.CharField(max_length=500,widget=PasswordInput())
 
 	
 class CrearAveForm(forms.Form):

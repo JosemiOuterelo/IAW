@@ -26,9 +26,10 @@ from django.views.generic.base import TemplateView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',TemplateView.as_view(template_name='VayaPajaro/Home.html')),
-    url(r'^usuario/registrarse',registrarse,name='Registrarse'),
-	url(r'^usuario/login',iniciarsesion,name='Login'),
-	url(r'^usuario/logout',cerrarsesion,name='Logout'),
+    url(r'^usuario/registrarse/',registrarse,name='Registrarse'),
+	url(r'^usuario/login/',iniciarsesion,name='Login'),
+	url(r'^usuario/loginadmin/',iniciarsesionadmin,name='Loginadmin'),
+	url(r'^usuario/logout/',cerrarsesion,name='Logout'),
     url(r'^usuario/mostrar_usuarios/',MostrarUsuarios.as_view(),name='Mostrar_Usuarios'),
     url(r'^usuario/modificar/(?P<pk>\d+)',ModificarUsuarios.as_view(),name='Modificar_Usuarios'),
     url(r'^usuario/eliminar/(?P<pk>\d+)',EliminarUsuario.as_view(),name='Eliminar_Usuario'),

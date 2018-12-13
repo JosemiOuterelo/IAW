@@ -52,6 +52,7 @@ class Articulo(models.Model):
 		
 class Foto(models.Model):
 	imagen = models.ImageField(upload_to='Fotos_de_Aves')
+	usuario = models.ForeignKey(Usuario)
 	
 	def __unicode__(self):
 		return unicode(self.imagen)
