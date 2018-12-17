@@ -6,7 +6,7 @@
 	<th>Nombre</th>
 	<th>OPCIONES</th>
 </tr>
-{% for ave in object_list %}
+{% for ave in mostrar %}
 {% csrf_token %}
 <tr>
 	<td>{{ ave.pk }}</td>

@@ -174,6 +174,8 @@ class MostrarAves(LoginRequiredMixin,ListView):
 	
 	def get_context_data(self, **kwargs):
 		context = super(MostrarAves,self).get_context_data(**kwargs)
+		mostrar = Ave.objects.all().order_by('nombre')
+		context['mostrar'] = mostrar
 		return context
 		
 		
@@ -231,7 +233,7 @@ def crearFoto(request,nombre):
 			imagen.usuario = usuario
 			imagen.save()
 			ave.fotos.add(imagen)
-			return HttpResponseRedirect('/ave/mostrar_ave/%s/' % ave.nombre)
+			return HttpResponseRedirect('/ave/mostrar_ave/%s/' % ave.nombre.replace(' ','_'))
 	else:
 		form = CrearFotoForm()	
 	return render(request,'VayaPajaro/CrearFoto.html',{'fotos':form})
@@ -241,7 +243,7 @@ def administrador(user):
 	return user.is_staff
 	
 	
-@user_passes_test(administrador,login_url='/usuario/login/')
+@login_required(login_url='/usuario/login/')
 def eliminarFoto(request,pk):
 	if request.method == 'POST':
 		foto = Foto.objects.get(pk=pk)
@@ -249,7 +251,7 @@ def eliminarFoto(request,pk):
 		nombre= ave[0].nombre
 		foto.imagen.delete()
 		foto.delete()
-		return HttpResponseRedirect('/ave/mostrar_ave/%s/' % nombre)
+		return HttpResponseRedirect('/ave/mostrar_ave/%s/' % nombre.replace(' ','_'))
 	return render(request,'VayaPajaro/Eliminar_Foto.html')
 
 #REST API
