@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'VayaPajaro',
     'rest_framework',
+    'analytical',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'Proyecto_Chule.urls'
@@ -63,6 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+		'social_django.context_processors.backends',
+		'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -81,6 +86,10 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -123,3 +132,43 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_ROOT = '/home/chule/Documentos/Proyecto_Chule/media/'
 MEDIA_URL = '/media/'
+
+# GUACAMOLE
+
+GUACD_HOST = 'localhost'
+GUACD_PORT = 4822
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'detailed': {
+            'format': '[%(threadName)s] %(levelname)s %(name)s - %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'detailed',
+            'level': 'DEBUG'
+        },
+    },
+    'loggers': {
+        'django': {
+            'level': 'WARNING'
+        },
+        'guacamole': {
+            'level': 'DEBUG'
+        },
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO'
+        }
+    }
+}
+
+LOGIN_URL = 'Login'
+LOGOUT_URL = 'Logout'
+
+SOCIAL_AUTH_GITHUB_KEY = '59504631c2d331fb1a3c'
+SOCIAL_AUTH_GITHUB_SECRET = 'd16c62057b7ba2ebd3cc92316fbea0866637ee5a'

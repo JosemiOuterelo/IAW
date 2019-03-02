@@ -9,6 +9,7 @@
 	<p>Contraseña:</p>
 	{{ form.password }}</p>
 	<input type="submit" value="Iniciar Sesion" />
+	<a href="{% url 'social:begin' 'github' %}">LOGIN CON GITHUB</a>
 	</div>
 </form>
 {% endblock %}

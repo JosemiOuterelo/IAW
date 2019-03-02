@@ -50,4 +50,6 @@ urlpatterns = [
     url(r'^serializer/fotos/$',SerMostrar_Fotos.as_view()),
     url(r'^serializer/foto/(?P<pk>\d+)',SerMostrar_Foto.as_view()),
     url(r'^serializer/',include('rest_framework.urls',namespace='rest_framework')),
+    url(r'^tunnel/',index,name='index'),
+    url(r'^oauth/',include('social_django.urls',namespace='social')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
