@@ -88,6 +88,7 @@ DATABASES = {
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
+	'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -172,3 +173,6 @@ LOGOUT_URL = 'Logout'
 
 SOCIAL_AUTH_GITHUB_KEY = '59504631c2d331fb1a3c'
 SOCIAL_AUTH_GITHUB_SECRET = 'd16c62057b7ba2ebd3cc92316fbea0866637ee5a'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '325385941515203'
+SOCIAL_AUTH_FACEBOOK_SECRET = '3a68d29f5f46d75fc92a862d3a33e7c0'
