@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'analytical',
     'social_django',
+    'django_openid_auth',
 ]
 
 MIDDLEWARE = [
@@ -89,6 +90,7 @@ DATABASES = {
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
 	'social_core.backends.facebook.FacebookOAuth2',
+	'django_openid_auth.auth.OpenIDBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -170,10 +172,16 @@ LOGGING = {
 
 LOGIN_URL = 'Login'
 LOGOUT_URL = 'Logout'
+LOGIN_REDIRECT_URL = "/"
 
-SOCIAL_AUTH_GITHUB_KEY = ''
-SOCIAL_AUTH_GITHUB_SECRET = ''
+SOCIAL_AUTH_GITHUB_KEY = '80bc654ab4938e27296c'
+SOCIAL_AUTH_GITHUB_SECRET = 'c1db448595473302e46b96171bb8f270b63bd829'
 
-SOCIAL_AUTH_FACEBOOK_KEY = ''
-SOCIAL_AUTH_FACEBOOK_SECRET = ''
+SOCIAL_AUTH_FACEBOOK_KEY = '325385941515203'
+SOCIAL_AUTH_FACEBOOK_SECRET = '3a68d29f5f46d75fc92a862d3a33e7c0'
 
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+OPENID_CREATE_USERS = True
+OPENID_SSO_SERVER_URL = 'https://login.launchpad.net/'
+
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LfEoZUUAAAAAPMUBcAQdf2H-SAiZNyzVy6CsiRt'

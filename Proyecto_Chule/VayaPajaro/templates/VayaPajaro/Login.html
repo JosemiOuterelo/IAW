@@ -11,6 +11,13 @@
 	<input type="submit" value="Iniciar Sesion" /></p>
 	<a href="{% url 'social:begin' 'github' %}">LOGIN CON GITHUB</a></p>
 	<a href="{% url 'social:begin' 'facebook' %}">LOGIN CON FACEBOOK</a>
+	
+  <script src="https://www.google.com/recaptcha/api.js?render=6LfEoZUUAAAAAEs1J2m_dhqm4-utfwLb5xWu327P"></script>
+  <script>
+  grecaptcha.ready(function() {
+      grecaptcha.execute('6LfEoZUUAAAAAEs1J2m_dhqm4-utfwLb5xWu327P', {action: 'homepage'}).then(function(token) {});
+  });
+  </script>
 	</div>
 </form>
 {% endblock %}

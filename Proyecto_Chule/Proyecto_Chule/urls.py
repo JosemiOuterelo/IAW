@@ -52,4 +52,5 @@ urlpatterns = [
     url(r'^serializer/',include('rest_framework.urls',namespace='rest_framework')),
     url(r'^tunnel/',index,name='index'),
     url(r'^oauth/',include('social_django.urls',namespace='social')),
+    url(r'^openid/',include('django_openid_auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
